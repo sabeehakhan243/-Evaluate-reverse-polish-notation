@@ -1,0 +1,49 @@
+int evalRPN(vector<string>& tokens) {
+    stack<string> k;
+    int i = 0;
+    k.push(tokens[i]);
+    i++;
+
+    while (!k.empty() && i < tokens.size()) {
+        k.push(tokens[i++]);
+        string x = k.top();
+
+        if (x == "/" || x == "+" || x == "-" || x == "*") {
+            k.pop();
+            string p = k.top();
+            int b = stoi(p);
+            k.pop();
+            string q = k.top();
+            int a = stoi(q);
+            k.pop();
+            int c;
+
+            cout << "a: " << a << endl;
+            cout << "b: " << b << endl;
+
+            if (x == "/") {
+                c = a / b;
+                cout << c << endl;
+                k.push(to_string(c));
+            } else if (x == "+") {
+                c = a + b;
+                cout << "c: " << c << endl;
+                k.push(to_string(c));
+            } else if (x == "-") {
+                c = a - b;
+                cout << c << endl;
+                k.push(to_string(c));
+            } else {
+                c = a * b;
+                cout << c << endl;
+                k.push(to_string(c));
+            }
+        }
+    }
+
+    string f = k.top();
+    cout << f << endl;
+    k.pop();
+    int ans = stoi(f);
+    return ans;
+}
